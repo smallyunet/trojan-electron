@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <link rel="stylesheet" href="./resources/bootstrap.min.css">
+  <script src="./resources/jquery-3.4.1.min.js"></script>
+  <script src="./resources/bootstrap.min.js"></script>
+  <title>控制台 - trojan-electron</title>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col">
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <button type="submit" class="btn btn-primary">重启trojan</button>
+        </form>
+      </div>
+    </div>
+
+    <pre><code>
+        <div id="config"></div>
+      </code></pre>
+  </div>
+
+
+  <script src="./renderer.js"></script>
+</body>
+
+</html>
