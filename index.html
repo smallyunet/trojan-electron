@@ -13,30 +13,54 @@
 </head>
 
 <body>
-
   <div class="container main">
 
-    <div class="row">
+    <div class="row box">
       <div class="col">
-        <form>
-          <div class="form-group">
-            <label for="remote_addr">服务器地址</label>
-            <input class="form-control" id="remote_addr">
-          </div>
-          <button type="submit" class="btn btn-primary">重启trojan</button>
-        </form>
+        <button type="submit" id="start" class="btn btn-primary">启动</button>
+        <button type="submit" id="stop" class="btn btn-primary">停止</button>
+        <button type="submit" id="restart" class="btn btn-primary">重启</button>
+        <button type="submit" id="status" class="btn btn-primary">程序状态</button>
+        <button type="submit" id="clear" class="btn btn-primary">清除日志</button>
+      </div>
+    </div>
 
+    <div class="row box">
+      <div class="col-7">
+        <form>
+          <div class="form-group row">
+            <label for="remoteAddr" class="col-4 col-form-label">服务器地址</label>
+            <div class="col-8">
+              <input class="form-control" id="remoteAddr">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="password" class="col-4 col-form-label">密码</label>
+            <div class="col-8">
+              <input class="form-control" id="password">
+            </div>
+          </div>
+        </form>
       </div>
 
-      <div class="col">
+      <div class="col-5">
         <div id="config"></div>
       </div>
     </div>
 
+   
+
+    <div class="row">
+      <div class="col">
+        <pre>
+          <code>
+            <div id="consoleLog"></div>
+          </code>
+        </pre>
+      </div>
+    </div>
+
   </div>
-
-
   <script src="./renderer.js"></script>
 </body>
-
 </html>
