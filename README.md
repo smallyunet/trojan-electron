@@ -14,7 +14,7 @@ trojan dashboard electron version (for linux)
 
 ## download
 
-[trojan-electron-linux-x64.tar.gz](./package/trojan-electron-linux-x64.tar.gz)
+[trojan-electron-linux-x64.tar.gz](https://github.com/smallyunet/trojan-electron/releases/download/v0.0.1/trojan-electron-linux-x64.tar.gz)
 
 下载后解压，找到 trojan-election 文件，双击运行（如果文件没有执行权限，需要加上）
 
