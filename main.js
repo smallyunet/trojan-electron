@@ -1,6 +1,8 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, Menu} = require('electron')
+const {app, BrowserWindow, Menu, Tray} = require('electron')
 const path = require('path')
+
+let tray = null
 
 function createWindow () {
   // Create the browser window.
@@ -15,6 +17,34 @@ function createWindow () {
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
+  mainWindow.on('close', (event) => {
+    // 阻止默认事件
+    event.preventDefault();
+    // 隐藏窗口
+    mainWindow.hide();
+    // 窗口不显示再任务栏中 
+    mainWindow.setSkipTaskbar(true);
+
+    // 显示托盘图标
+    tray = new Tray(path.join(__dirname, 'resources/international.png'))
+    const contextMenu = Menu.buildFromTemplate([
+      { 
+        label: '退出程序',
+        click() {
+          tray.destroy()
+          app.exit()
+        } 
+      }
+    ])
+    tray.on('click', () => {
+      mainWindow.show()
+      mainWindow.setSkipTaskbar(false);
+      tray.destroy()
+    })
+    tray.setToolTip('trojan-electron')
+    tray.setContextMenu(contextMenu)
+  })
+
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
@@ -22,7 +52,11 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(createWindow)
+
+app.whenReady().then(() => {
+  createWindow()
+
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -39,6 +73,7 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
 
 
 const isMac = process.platform === 'darwin'
