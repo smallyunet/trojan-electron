@@ -1,8 +1,12 @@
 var fs = require('fs');
 const { exec } = require('child_process');
 
-let systemPassword = 'smallyu'
-let trojanPath = '/home/smallyu/apps/trojan'
+// let systemPassword = 'smallyu'
+// let trojanPath = '/home/smallyu/apps/trojan'
+
+let systemPassword = ''
+let trojanPath = '.'
+
 let config = {}
 
 // -------------------------------------------------
@@ -50,6 +54,7 @@ let parseFile = function (data) {
   // 处理输入框事件
   let remoteAddrEle = document.getElementById("remoteAddr")
   let passwordEle = document.getElementById("password")
+  let sysPasswordEle = document.getElementById("sysPassword")
 
   remoteAddrEle.value = config.remote_addr
   passwordEle.value = config.password[0]
@@ -82,8 +87,12 @@ let parseFile = function (data) {
       连接方式：socks5
     `
   }
+  let sysPasswordhange = () => {
+    systemPassword = sysPasswordEle.value
+  }
   remoteAddrEle.addEventListener('keyup', remoteAddrChange)
   passwordEle.addEventListener('keyup', passwordChange)
+  sysPasswordEle.addEventListener('keyup', sysPasswordhange)
 }
 
 // -------------------------------------------------
@@ -98,8 +107,16 @@ let saveConfig = () => {
 
 let statusAction = () => {
   return new Promise((resolve, reject) => {
-    exec(`pgrep trojan`, (err, stdout, stderr) => {
-      resolve(stdout.length!=0)
+    exec(`ps -ef | grep trojan`, (err, stdout, stderr) => {
+      // 查找进程
+      let pids = []
+      let iterator = stdout.matchAll(`(?=root).*(?=${trojanPath}/config.json)`)
+      let next = iterator.next()
+      while (next.value != undefined) {
+        pids.push(`${next.value}`.replace(/\s+/g,',').split(',')[1])
+        next = iterator.next()
+      }
+      resolve(pids.length!=0)
     })
   })
 }
@@ -118,8 +135,22 @@ let startAction = () => {
 
 let stopAction = () => {
   return new Promise((resolve, reject) => {
-    exec(`echo ${systemPassword} | sudo -S pkill trojan`, (err, stdout, stderr) => {
-      resolve(stderr.length==0)
+    exec(`ps -ef | grep trojan`, (err, stdout, stderr) => {
+      // 查找进程
+      let pids = []
+      let iterator = stdout.matchAll(`(?=root).*(?=${trojanPath}/config.json)`)
+      let next = iterator.next()
+      while (next.value != undefined) {
+        pids.push(`${next.value}`.replace(/\s+/g,',').split(',')[1])
+        next = iterator.next()
+      }
+      // kill进程
+      pids.map(pid => {
+        exec(`echo ${systemPassword} | sudo -S kill -9 ${pid}`, (err, stdout, stderr) => {})
+      })
+      setTimeout(() => {
+        resolve(true)
+      }, 300)
     })
   })
 }
@@ -140,7 +171,7 @@ let loadButton = function() {
         statusAction().then(status => {
           consoleLogPrint(`启动程序：${status==true?'成功':'失败'}`)
         })
-      }, 500)
+      }, 3000)
     })
   }
   let stopClick = () => {
