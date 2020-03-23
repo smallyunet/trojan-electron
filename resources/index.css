@@ -4,3 +4,9 @@
 .box {
     margin-top: 50px;
 }
+#consoleLog {
+    height: 200px;
+    overflow: auto;
+    border: 1px solid #abc;
+    padding: 20px;
+}
