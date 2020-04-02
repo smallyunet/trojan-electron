@@ -1,11 +1,11 @@
 var fs = require('fs');
 const { exec } = require('child_process');
 
-let systemPassword = 'smallyu'
-let trojanPath = '/home/smallyu/apps/trojan'
+// let systemPassword = 'smallyu'
+// let trojanPath = '/home/smallyu/apps/trojan'
 
-// let systemPassword = ''
-// let trojanPath = '.'
+let systemPassword = ''
+let trojanPath = '.'
 
 let config = {}
 
