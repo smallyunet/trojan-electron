@@ -18,7 +18,7 @@ trojan需要root权限才能启动，所以需要输入root密码。
 
 ## download
 
-[trojan-electron-linux-x64.tar.gz](https://github.com/smallyunet/trojan-electron/releases/download/v0.0.2/trojan-electron-linux-x64.tar.gz)
+[trojan-electron-linux-x64-v0.0.3.tar.gz](https://github.com/smallyunet/trojan-electron/releases/download/v0.0.3/trojan-electron-linux-x64.tar.gz)
 
 下载后解压，找到 trojan-election 文件，双击运行（如果文件没有执行权限，需要加上）
 
